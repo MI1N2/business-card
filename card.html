@@ -130,48 +130,55 @@
       }
     }
 
-    /* Avatar with initials */
-    .avatar {
+    /* Avatar frame: wraps the photo so decorative pseudo-elements render */
+    .frame {
+      position: relative;
       width: 92px;
       height: 92px;
       margin: 0 auto 20px;
+    }
+
+    .avatar {
+      width: 92px;
+      height: 92px;
       border-radius: 50%;
       display: block;
       object-fit: cover;
       background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
       box-shadow:
-        0 10px 30px rgba(99, 102, 241, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25),
-        0 0 18px rgba(99, 102, 241, 0.4),
-        0 0 36px rgba(34, 211, 238, 0.18);
-      position: relative;
+        0 0 16px rgba(34, 211, 238, 0.7),
+        0 0 32px rgba(99, 102, 241, 0.45),
+        0 0 60px rgba(34, 211, 238, 0.2),
+        0 12px 28px rgba(0, 0, 0, 0.4),
+        inset 0 0 12px rgba(34, 211, 238, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
       user-select: none;
     }
 
-    /* Rotating glow ring around the circular avatar (clockwise) */
-    .avatar::after {
+    /* Photo frame border glows with a bright arc rotating clockwise */
+    .frame::before {
       content: "";
       position: absolute;
-      inset: -8px;
+      inset: -5px;
       border-radius: 50%;
-      padding: 3.5px;
+      padding: 5px;
       background: conic-gradient(
         from 0deg,
-        rgba(99, 102, 241, 0) 0deg,
-        #6366f1 70deg,
-        #22d3ee 140deg,
-        rgba(34, 211, 238, 0.7) 170deg,
-        rgba(34, 211, 238, 0) 220deg,
-        rgba(167, 139, 250, 0) 280deg,
-        #a78bfa 330deg,
-        rgba(167, 139, 250, 0.7) 360deg
+        rgba(34, 211, 238, 0) 0deg,
+        rgba(34, 211, 238, 0.75) 55deg,
+        #22d3ee 90deg,
+        #6366f1 125deg,
+        rgba(167, 139, 250, 0.6) 155deg,
+        rgba(167, 139, 250, 0) 195deg
       );
       -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
       -webkit-mask-composite: xor;
       mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
       mask-composite: exclude;
-      animation: spin 2.4s linear infinite;
+      filter: blur(1px);
+      animation: spin 2.6s linear infinite;
       pointer-events: none;
+      z-index: 1;
     }
 
     @keyframes spin {
@@ -180,23 +187,23 @@
       }
     }
 
-    /* Cascading per-letter glow for the one-line intro (M -> 희, one at a time) */
+    /* Cascading per-letter glow for the one-line intro (M -> 희, ONE light passes through) */
     .cg {
       display: inline-block;
-      animation: charGlow 1.6s ease-in-out infinite;
+      animation: charGlow 4.8s linear infinite;
     }
 
     @keyframes charGlow {
-      0%, 88% {
-        color: #7b83a3;
+      0%, 95.9% {
+        color: #636b8c;
         text-shadow: none;
       }
       96%, 100% {
         color: #ffffff;
         text-shadow:
-          0 0 8px var(--accent-2),
-          0 0 16px var(--accent-2),
-          0 0 28px var(--accent-1);
+          0 0 10px var(--accent-2),
+          0 0 22px var(--accent-2),
+          0 0 36px var(--accent-1);
       }
     }
 
@@ -296,12 +303,6 @@
       flex-shrink: 0;
     }
 
-    .footnote {
-      margin-top: 26px;
-      font-size: 12px;
-      letter-spacing: 0.06em;
-      color: var(--text-muted);
-    }
 
     /* Responsive tweaks for small screens */
     @media (max-width: 400px) {
@@ -321,10 +322,12 @@
   <div class="orb orb-3"></div>
 
   <main class="card">
-    <img class="avatar" src="profile.jpg" alt="김민희 프로필" />
+    <div class="frame">
+      <img class="avatar" src="profile.jpg" alt="김민희 프로필" />
+    </div>
 
     <h1 class="name">김민희</h1>
-    <p class="name-roman">Kim Min-hee</p>
+    <p class="name-roman">Kim Min Hee</p>
 
     <div class="badges">
       <span class="badge badge-team">P4-2P/J팀</span>
@@ -334,7 +337,7 @@
     <div class="divider"></div>
 
     <p class="intro">
-      <span class="cg" style="animation-delay:0s">M</span><span class="cg" style="animation-delay:0.2s">I</span><span class="cg" style="animation-delay:0.4s"> </span><span class="cg" style="animation-delay:0.6s">간</span><span class="cg" style="animation-delay:0.8s">판</span><span class="cg" style="animation-delay:1s">,</span><span class="cg" style="animation-delay:1.2s"> </span><span class="cg" style="animation-delay:1.4s">I</span><span class="cg" style="animation-delay:1.6s">N</span><span class="cg" style="animation-delay:1.8s">S</span><span class="cg" style="animation-delay:2s">P</span><span class="cg" style="animation-delay:2.2s">E</span><span class="cg" style="animation-delay:2.4s">C</span><span class="cg" style="animation-delay:2.6s">T</span><span class="cg" style="animation-delay:2.8s">I</span><span class="cg" style="animation-delay:3s">O</span><span class="cg" style="animation-delay:3.2s">N</span><span class="cg" style="animation-delay:3.4s">의</span><span class="cg" style="animation-delay:3.6s"> </span><span class="cg" style="animation-delay:3.8s">빛</span><span class="cg" style="animation-delay:4s"> </span><span class="cg" style="animation-delay:4.2s">김</span><span class="cg" style="animation-delay:4.4s">민</span><span class="cg" style="animation-delay:4.6s">희</span>
+      <span class="cg" style="animation-delay:0s">M</span><span class="cg" style="animation-delay:0.2s">I</span><span class="cg" style="animation-delay:0.4s">&nbsp;</span><span class="cg" style="animation-delay:0.6s">간</span><span class="cg" style="animation-delay:0.8s">판</span><span class="cg" style="animation-delay:1s">,</span><span class="cg" style="animation-delay:1.2s">&nbsp;</span><span class="cg" style="animation-delay:1.4s">I</span><span class="cg" style="animation-delay:1.6s">N</span><span class="cg" style="animation-delay:1.8s">S</span><span class="cg" style="animation-delay:2s">P</span><span class="cg" style="animation-delay:2.2s">E</span><span class="cg" style="animation-delay:2.4s">C</span><span class="cg" style="animation-delay:2.6s">T</span><span class="cg" style="animation-delay:2.8s">I</span><span class="cg" style="animation-delay:3s">O</span><span class="cg" style="animation-delay:3.2s">N</span><span class="cg" style="animation-delay:3.4s">의</span><span class="cg" style="animation-delay:3.6s">&nbsp;</span><span class="cg" style="animation-delay:3.8s">빛</span><span class="cg" style="animation-delay:4s">&nbsp;</span><span class="cg" style="animation-delay:4.2s">김</span><span class="cg" style="animation-delay:4.4s">민</span><span class="cg" style="animation-delay:4.6s">희</span>
     </p>
 
     <a class="email-btn" href="mailto:minheeee.kim@samsung.com">
@@ -346,7 +349,6 @@
       minheeee.kim@samsung.com
     </a>
 
-    <p class="footnote">ONLINE BUSINESS CARD</p>
   </main>
 </body>
 </html>
