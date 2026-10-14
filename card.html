@@ -141,23 +141,62 @@
       background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
       box-shadow:
         0 10px 30px rgba(99, 102, 241, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        inset 0 1px 0 rgba(255, 255, 255, 0.25),
+        0 0 18px rgba(99, 102, 241, 0.4),
+        0 0 36px rgba(34, 211, 238, 0.18);
       position: relative;
       user-select: none;
     }
 
+    /* Rotating glow ring around the circular avatar (clockwise) */
     .avatar::after {
       content: "";
       position: absolute;
-      inset: -6px;
+      inset: -8px;
       border-radius: 50%;
-      border: 1px dashed rgba(255, 255, 255, 0.18);
-      animation: spin 18s linear infinite;
+      padding: 3.5px;
+      background: conic-gradient(
+        from 0deg,
+        rgba(99, 102, 241, 0) 0deg,
+        #6366f1 70deg,
+        #22d3ee 140deg,
+        rgba(34, 211, 238, 0.7) 170deg,
+        rgba(34, 211, 238, 0) 220deg,
+        rgba(167, 139, 250, 0) 280deg,
+        #a78bfa 330deg,
+        rgba(167, 139, 250, 0.7) 360deg
+      );
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      animation: spin 2.4s linear infinite;
+      pointer-events: none;
     }
 
     @keyframes spin {
       to {
         transform: rotate(360deg);
+      }
+    }
+
+    /* Cascading per-letter glow for the one-line intro (M -> 희, one at a time) */
+    .cg {
+      display: inline-block;
+      animation: charGlow 1.6s ease-in-out infinite;
+    }
+
+    @keyframes charGlow {
+      0%, 88% {
+        color: #7b83a3;
+        text-shadow: none;
+      }
+      96%, 100% {
+        color: #ffffff;
+        text-shadow:
+          0 0 8px var(--accent-2),
+          0 0 16px var(--accent-2),
+          0 0 28px var(--accent-1);
       }
     }
 
@@ -295,7 +334,7 @@
     <div class="divider"></div>
 
     <p class="intro">
-      MI 간판, INSPECTION의 빛 김민희
+      <span class="cg" style="animation-delay:0s">M</span><span class="cg" style="animation-delay:0.2s">I</span><span class="cg" style="animation-delay:0.4s"> </span><span class="cg" style="animation-delay:0.6s">간</span><span class="cg" style="animation-delay:0.8s">판</span><span class="cg" style="animation-delay:1s">,</span><span class="cg" style="animation-delay:1.2s"> </span><span class="cg" style="animation-delay:1.4s">I</span><span class="cg" style="animation-delay:1.6s">N</span><span class="cg" style="animation-delay:1.8s">S</span><span class="cg" style="animation-delay:2s">P</span><span class="cg" style="animation-delay:2.2s">E</span><span class="cg" style="animation-delay:2.4s">C</span><span class="cg" style="animation-delay:2.6s">T</span><span class="cg" style="animation-delay:2.8s">I</span><span class="cg" style="animation-delay:3s">O</span><span class="cg" style="animation-delay:3.2s">N</span><span class="cg" style="animation-delay:3.4s">의</span><span class="cg" style="animation-delay:3.6s"> </span><span class="cg" style="animation-delay:3.8s">빛</span><span class="cg" style="animation-delay:4s"> </span><span class="cg" style="animation-delay:4.2s">김</span><span class="cg" style="animation-delay:4.4s">민</span><span class="cg" style="animation-delay:4.6s">희</span>
     </p>
 
     <a class="email-btn" href="mailto:minheeee.kim@samsung.com">
